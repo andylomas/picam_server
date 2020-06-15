@@ -27,7 +27,7 @@ The code is designed to illustrate handling errors and lost connections, includi
 ### To run the web application:
 
 1. Open a browser on the client computer.
-2. Enter the URL to the server such as 'http://localhost:8080', 'raspberrypi.local:8080' or '192.168.0.18:8080'.
+2. Enter the URL to the server such as 'http://localhost:8080', 'http://raspberrypi.local:8080' or 'http://192.168.0.18:8080'.
 
 ## Notes
 
