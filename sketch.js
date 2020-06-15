@@ -1,9 +1,13 @@
+// Global variables
 let socket;
+let button;
 
 function setup() {
+  // Create a canvas to fill the window
   createCanvas(windowWidth, windowHeight);
   background(10, 20, 30);
 
+  // Take Picture button
   button = createButton('Take Picture');
   button.position(50, 50);
   button.mousePressed(sendTakePicture);
@@ -48,7 +52,19 @@ function setup() {
   socket.on('disconnect',
     function() {
       console.log('disconnected from the server');
-      alert('Disconnected from the server. Reload the page to reconnect')
+      alert('Disconnected from the server');
+      // Disable the Take Picture button
+      button.attribute('disabled', '');
+    }
+  );
+
+  // Callback if reconnected
+  socket.on('reconnect',
+    function() {
+      console.log('reconnected to the server');
+      alert('Reconnected to the server');
+      // Enable the Take Picture button
+      button.removeAttribute('disabled');
     }
   );
 }
@@ -58,6 +74,6 @@ function draw() {
 
 // Function to send a 'takepicture' message to the server
 function sendTakePicture() {
-  console.log('sendTakePicture');
+  console.log('sendTakePicture: emitting takepicture');
   socket.emit('takepicture', '');
 }
