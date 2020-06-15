@@ -1,6 +1,6 @@
 # PiCamServer
 
-Example of a webserver using Python to take pictures on a Raspberry Pi connected over a network. Uses the aiohttp and socketio Python modules.
+Example of a webserver using Python to take pictures on a Raspberry Pi connected over a network. Uses the aiohttp, socketio and picamera Python modules.
 
 A p5.js sketch is used to create a simple web app to send messages to the server to take pictures, request the images from the server, and display them in a browser.
 
