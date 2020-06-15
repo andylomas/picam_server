@@ -1,6 +1,6 @@
 # PiCamServer
 
-Example of a webserver using Python to take pictures on a Raspberry Pi connected over a network. Uses the aiohttp and socketio Pthon modules.
+Example of a webserver using Python to take pictures on a Raspberry Pi connected over a network. Uses the aiohttp and socketio Python modules.
 
 A p5.js sketch is used to create a simple web app to send messages to the server to take pictures, request the images from the server, and display them in a browser.
 
@@ -8,15 +8,16 @@ The code is designed to illustrate handling errors and lost connections, includi
 
 ## Installation
 
-1. Place the files into a suitable directory such as /home/pi/code/python/picam_server.
+1. Place the files into a suitable project directory such as /home/pi/code/python/picam_server.
 2. Edit 'server.py' changing the project_root variable to the directory that you used to install the files.
 3. Edit 'sketch.js' changing the serverAddress variable to the URL to access the raspberry pi on the network.
 4. Enable the Raspberry Pi camera using 'sudo raspi-config', selecting 'Interfacting Options' then 'Camera'.
-5. Install the requirements using 'python3 -m pip install -r requirements.txt'.
+5. Install the requirements by cd-ing to the project directory and using 'python3 -m pip install -r requirements.txt'.
 
 To run the server:
 
-1. cd to the directory with 
+1. cd to the project directory.
+2. Run the server using 'python3 server.py'.
 
 If you want to automatically run on boot:
 
@@ -25,4 +26,4 @@ If you want to automatically run on boot:
 
 ## Notes
 
-The application saves all the pictures taken using unique names in the images directory of the project_root. These images aren't ever deleted by the server, so it will be necessary to occassionally empty this directory to avoid it filling up and the Raspberry Pi running out of disk space.
+The application saves all the pictures taken in the images directory of the project_root. These images aren't ever deleted by the server, so it will be necessary to occassionally empty this directory to avoid it filling up and the Raspberry Pi running out of disk space.
