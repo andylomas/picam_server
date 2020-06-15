@@ -16,6 +16,8 @@ app = web.Application()
 sio.attach(app)
 
 # Change the working directory to the project root
+# This line should be changed depending on where you
+# place the code in the Raspberry Pi
 project_root = '/home/pi/code/python/picam_server'
 os.chdir(project_root)
 

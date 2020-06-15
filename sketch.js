@@ -12,7 +12,8 @@ function setup() {
   button.position(50, 50);
   button.mousePressed(sendTakePicture);
 
-  // Change this address to the server you're running on
+  // Address of the web server. Change this address to the
+  // Raspberry Pi server you're running on
   const serverAddress = 'http://192.168.0.18:8080/';
 
   // Connect to the server using a socket
@@ -32,6 +33,7 @@ function setup() {
       loadImage(serverAddress + imageName, 
         function(img) {
           console.log('loadImage: image received');
+          // Display the picture in the canvas
           image(img, 0, 0);
         },
         function(err) {
