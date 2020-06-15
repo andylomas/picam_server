@@ -6,7 +6,7 @@ A p5.js sketch is used to create a simple web app to send messages to the server
 
 The code is designed to illustrate handling errors and lost connections, including disabling the 'Take Picture' button in the p5.js sketch if the connection is lost, and re-enabling it when the connection is restored.
 
-### Installation
+## Installation
 
 1. Place the files into a suitable directory such as /home/pi/code/python/picam_server.
 2. Edit 'server.py' changing the project_root variable to the directory that you used to install the files.
@@ -14,7 +14,15 @@ The code is designed to illustrate handling errors and lost connections, includi
 4. Enable the Raspberry Pi camera using 'sudo raspi-config', selecting 'Interfacting Options' then 'Camera'.
 5. Install the requirements using 'python3 -m pip install -r requirements.txt'.
 
+To run the server:
+
+1. cd to the directory with 
+
 If you want to automatically run on boot:
 
 1. Add 'sudo -u pi python3 /home/pi/code/python/picam_server/server.py &' to /etc/rc.local just before the final 'exit 0' statement.
 2. Change to boot using the command line interface using 'sudo raspi-config', selecting 'Boot Options' then 'Console Autologin'.
+
+## Notes
+
+The application saves all the pictures taken using unique names in the images directory of the project_root. These images aren't ever deleted by the server, so it will be necessary to occassionally empty this directory to avoid it filling up and the Raspberry Pi running out of disk space.

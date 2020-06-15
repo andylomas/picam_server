@@ -21,6 +21,11 @@ sio.attach(app)
 project_root = '/home/pi/code/python/picam_server'
 os.chdir(project_root)
 
+# Create an images directory if it doesn't already exist
+if not os.path.exists(project_root + '/images'):
+    print(f'creating images directory in {project_root}')
+    os.makedirs(project_root + '/images')
+
 # Serve requests for index.html
 async def index(request):
     with open('index.html') as f:
@@ -31,7 +36,7 @@ async def sketch(request):
     with open('sketch.js') as f:
         return web.Response(text=f.read(), content_type='text/javascript')
 
-# Handle any request using images in the path as a request for
+# Handle any request using /images/ in the path as a request for
 # a static file from the images directory
 app.router.add_static('/images/',
                       path=f'{project_root}/images',
