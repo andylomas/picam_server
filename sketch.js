@@ -1,11 +1,12 @@
 // Global variables
 let socket;
 let button;
+let currentImage;
 
 function setup() {
   // Create a canvas to fill the window
   createCanvas(windowWidth, windowHeight);
-  background(10, 20, 30);
+  background(20, 40, 80);
 
   // Take Picture button
   button = createButton('Take Picture');
@@ -14,7 +15,7 @@ function setup() {
 
   // Address of the web server. Change this address to the
   // Raspberry Pi server you're running on
-  const serverAddress = 'http://192.168.0.18:8080/';
+  const serverAddress = 'http://192.168.0.18:8080';
 
   // Connect to the server using a socket
   socket = io.connect(serverAddress);
@@ -30,11 +31,12 @@ function setup() {
 
       // Load the image asynchronously with a callback to
       // run when the image has been received from the server
-      loadImage(serverAddress + imageName, 
+      loadImage(serverAddress + '/' + imageName, 
         function(img) {
           console.log('loadImage: image received');
           // Display the picture in the canvas
-          image(img, 0, 0);
+          currentImage = img;
+          image(currentImage, 0, 0);
         },
         function(err) {
           console.log('loadImage error: ' + err);
@@ -72,6 +74,19 @@ function setup() {
 }
 
 function draw() {
+}
+
+// Function that p5.js calls if the window is resized
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  
+  if (currentImage) {
+    // If we've got a current image re-draw it
+    image(currentImage, 0, 0);
+  } else {
+    // Other wise just draw a coloured ba
+    background(20, 40, 80);
+  }
 }
 
 // Function to send a 'takepicture' message to the server

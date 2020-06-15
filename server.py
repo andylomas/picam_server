@@ -4,7 +4,7 @@ from picamera import PiCamera
 import uuid
 import os
 
-print("Starting server to handle taking photos with the Raspberry Pi camera")
+print("Starting server.py: web server to handle taking photos with the Raspberry Pi camera")
 
 # Start the Raspberry Pi camera
 camera = PiCamera()

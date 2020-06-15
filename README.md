@@ -1,4 +1,4 @@
-# PiCamServer
+# picam_server
 
 Example of a webserver using Python to take pictures on a Raspberry Pi connected over a network. Uses the aiohttp, socketio and picamera Python modules.
 
@@ -14,15 +14,20 @@ The code is designed to illustrate handling errors and lost connections, includi
 4. Enable the Raspberry Pi camera using 'sudo raspi-config', selecting 'Interfacting Options' then 'Camera'.
 5. Install the requirements by cd-ing to the project directory and using 'python3 -m pip install -r requirements.txt'.
 
-To run the server:
+### To run the server:
 
 1. cd to the project directory.
 2. Run the server using 'python3 server.py'.
 
-If you want to automatically run on boot:
+### If you want to automatically run on boot:
 
 1. Add 'sudo -u pi python3 /home/pi/code/python/picam_server/server.py &' to /etc/rc.local just before the final 'exit 0' statement.
 2. Change to boot using the command line interface using 'sudo raspi-config', selecting 'Boot Options' then 'Console Autologin'.
+
+### To run the web application:
+
+1. Open a browser on the client computer.
+2. Enter the URL to the server such as 'http://localhost:8080', 'raspberrypi.local:8080' or '192.168.0.18:8080'.
 
 ## Notes
 
