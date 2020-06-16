@@ -6,18 +6,8 @@ import os
 
 print("Starting server.py: web server to handle taking photos with the Raspberry Pi camera")
 
-# Start the Raspberry Pi camera
-camera = PiCamera()
-camera.resolution = (1024, 768)
-
-# Attach socketio to the web server application
-sio = socketio.AsyncServer()
-app = web.Application()
-sio.attach(app)
-
 # Change the working directory to the project root
-# This line should be changed depending on where you
-# place the code in the Raspberry Pi
+# This line should be changed depending on where you place the code
 project_root = '/home/pi/code/python/picam_server'
 os.chdir(project_root)
 
@@ -25,6 +15,13 @@ os.chdir(project_root)
 if not os.path.exists(project_root + '/images'):
     print(f'creating images directory in {project_root}')
     os.makedirs(project_root + '/images')
+    
+# Start the Raspberry Pi camera
+camera = PiCamera()
+camera.resolution = (1024, 768)
+
+# Setup the web server application
+app = web.Application()
 
 # Serve requests for index.html
 async def index(request):
@@ -36,11 +33,20 @@ async def sketch(request):
     with open('sketch.js') as f:
         return web.Response(text=f.read(), content_type='text/javascript')
 
+# Specify callbacks to use when get request for specified routes
+app.router.add_get('/', index)
+app.router.add_get('/sketch.js', sketch)
+
 # Handle any request using /images/ in the path as a request for
 # a static file from the images directory
 app.router.add_static('/images/',
                       path=f'{project_root}/images',
                       name='images')
+
+# Attach socketio asynchronous server to the web server application
+# to handle messages over sockets
+sio = socketio.AsyncServer()
+sio.attach(app)
 
 # Client connecting to a socket
 @sio.event
@@ -62,14 +68,11 @@ async def takepicture(sid, data):
     # Send a message to the client with the name of the image file
     await sio.emit('picturetaken', f'images/{uniqueImageName}', to=sid)
 
-# Client disconnect from socket
+# Client disconnecting from a socket
 @sio.event
 def disconnect(sid):    
     print('disconnect ', sid)
 
-# Specify callbacks to use when get request for specified routes
-app.router.add_get('/', index)
-app.router.add_get('/sketch.js', sketch)
-
 if __name__ == '__main__':
+    # If we're running this file directly, start the web application
     web.run_app(app)
